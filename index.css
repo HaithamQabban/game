@@ -7,6 +7,6 @@ body {
   position: absolute;
   width: 50px;
   height: 50px;
-  background: url('flame.gif') center/cover no-repeat;
+  background: url('the flame.gif') center/cover no-repeat;
   pointer-events: none;
 }
