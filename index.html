@@ -35,15 +35,20 @@
         var container = document.getElementById('container');
 
         container.addEventListener('mousemove', function(event) {
-            var x = event.clientX - (flame.width / 2); // Adjusting to center the flame tip
-            var y = event.clientY - flame.height;
+            var rect = container.getBoundingClientRect();
+            var centerX = rect.left + rect.width / 2;
+            var centerY = rect.top + rect.height / 2;
+            var mouseX = event.clientX;
+            var mouseY = event.clientY;
 
-            var dx = x - parseInt(flame.style.left || 0);
-            var dy = y - parseInt(flame.style.top || 0);
+            var dx = mouseX - centerX;
+            var dy = mouseY - centerY;
 
             var angle = Math.atan2(dy, dx) * (180 / Math.PI); // Calculate angle in degrees
             flame.style.transform = 'rotate(' + angle + 'deg)';
             
+            var x = event.clientX - (flame.width / 2); // Adjusting to center the flame tip
+            var y = event.clientY - flame.height;
             flame.style.left = x + 'px';
             flame.style.top = y + 'px';
         });
