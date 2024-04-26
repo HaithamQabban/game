@@ -27,8 +27,8 @@
 document.addEventListener('DOMContentLoaded', function() {
     var flameTip = document.getElementById('flame-tip');
     var flameBody = document.getElementById('flame-body');
-    var flameSize = 30; // Initial flame size
-    var originalFlameSize = 30; // Original flame size
+    var flameSize = 50; // Initial flame size
+    var originalFlameSize = 46; // Original flame size
     var timer = null;
 
     document.addEventListener('mousemove', function(e) {
@@ -36,11 +36,11 @@ document.addEventListener('DOMContentLoaded', function() {
         var mouseY = e.clientY;
         
         // Set the position of the flame tip to follow the mouse cursor
-        flameTip.style.left = mouseX - flameSize / 2 + 'px';
+        flameTip.style.left = mouseX - flameSize / 20 + 'px';
         flameTip.style.top = mouseY - flameSize + 'px';
         
         // Increase flame size with every swing
-        flameSize += 1;
+        flameSize += 10;
         flameTip.style.width = flameSize + 'px';
         flameTip.style.height = flameSize + 'px';
 
