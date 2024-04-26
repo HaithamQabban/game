@@ -12,29 +12,50 @@
         cursor: none; /* Hide the default cursor */
     }
     
-    #flame {
+    .flame-part {
         position: absolute;
-        width: 30px;
-        height: 50px;
         background: url('needle.png') no-repeat center center/contain; /* Replace 'flame.png' with your flame image */
         pointer-events: none; /* Allow mouse events to pass through */
     }
 </style>
 </head>
 <body>
-<div id="flame"></div>
+<div id="flame-tip" class="flame-part"></div>
+<div id="flame-body" class="flame-part"></div>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    var flame = document.getElementById('flame');
+    var flameTip = document.getElementById('flame-tip');
+    var flameBody = document.getElementById('flame-body');
+    var flameSize = 100; // Initial flame size
 
     document.addEventListener('mousemove', function(e) {
         var mouseX = e.clientX;
         var mouseY = e.clientY;
         
-        // Set the position of the flame to follow the mouse cursor
-        flame.style.left = mouseX - flame.offsetWidth / 2 + 'px';
-        flame.style.top = mouseY - flame.offsetHeight + 'px';
+        // Set the position of the flame tip to follow the mouse cursor
+        flameTip.style.left = mouseX - flameSize / 2 + 'px';
+        flameTip.style.top = mouseY - flameSize + 'px';
+        
+        // Calculate the distance between flame tip and mouse cursor
+        var dx = flameTip.offsetLeft + flameSize / 2 - mouseX;
+        var dy = flameTip.offsetTop + flameSize / 2 - mouseY;
+        var distance = Math.sqrt(dx * dx + dy * dy);
+        
+        // Apply physics to the flame body based on the distance from the cursor
+        var maxDistance = 100; // Adjust this value for the desired effect
+        var displacement = Math.min(distance, maxDistance) / maxDistance;
+        var maxDisplacement = 20; // Adjust this value for the maximum displacement
+        var offsetX = maxDisplacement * (Math.random() - 0.5) * displacement;
+        var offsetY = maxDisplacement * (Math.random() - 0.5) * displacement;
+        
+        flameBody.style.left = flameTip.offsetLeft + offsetX + 'px';
+        flameBody.style.top = flameTip.offsetTop + offsetY + 'px';
+        
+        // Increase flame size with every swing
+        flameSize += 1;
+        flameTip.style.width = flameSize + 'px';
+        flameTip.style.height = flameSize + 'px';
     });
 });
 </script>
