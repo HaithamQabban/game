@@ -1,13 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Follow Flame</title>
-<link rel="stylesheet" href="styles.css">
-</head>
-<body>
-<div id="flame"></div>
-<script src="script.js"></script>
-</body>
-</html>
+body {
+  margin: 0;
+  overflow: hidden;
+}
+
+#flame {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background: url('flame.gif') center/cover no-repeat;
+  pointer-events: none;
+}
