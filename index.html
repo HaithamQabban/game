@@ -20,6 +20,7 @@
         width: 100px; /* adjust size as needed */
         height: auto;
         pointer-events: none; /* so that the flame doesn't interfere with mouse events */
+        transition: transform 0.1s; /* smooth transition for rotation */
     }
 </style>
 </head>
@@ -37,6 +38,12 @@
             var x = event.clientX - (flame.width / 2); // Adjusting to center the flame tip
             var y = event.clientY - flame.height;
 
+            var dx = x - parseInt(flame.style.left || 0);
+            var dy = y - parseInt(flame.style.top || 0);
+
+            var angle = Math.atan2(dy, dx) * (180 / Math.PI); // Calculate angle in degrees
+            flame.style.transform = 'rotate(' + angle + 'deg)';
+            
             flame.style.left = x + 'px';
             flame.style.top = y + 'px';
         });
