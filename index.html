@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mouse Flame</title>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        cursor: none; /* Hide the default cursor */
+    }
+    
+    #flame {
+        position: absolute;
+        width: 30px;
+        height: 50px;
+        background: url('flame.png') no-repeat center center/contain; /* Replace 'flame.png' with your flame image */
+        pointer-events: none; /* Allow mouse events to pass through */
+    }
+</style>
+</head>
+<body>
+<div id="flame"></div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var flame = document.getElementById('flame');
+
+    document.addEventListener('mousemove', function(e) {
+        var mouseX = e.clientX;
+        var mouseY = e.clientY;
+        
+        // Set the position of the flame to follow the mouse cursor
+        flame.style.left = mouseX - flame.offsetWidth / 2 + 'px';
+        flame.style.top = mouseY - flame.offsetHeight + 'px';
+    });
+});
+</script>
+</body>
+</html>
