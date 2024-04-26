@@ -14,7 +14,7 @@
     
     .flame-part {
         position: absolute;
-        background: url('needle.png') no-repeat center center/contain; /* Replace 'flame.png' with your flame image */
+        background: url('neddle.png') no-repeat center center/contain; /* Replace 'flame.png' with your flame image */
         pointer-events: none; /* Allow mouse events to pass through */
     }
 </style>
@@ -27,7 +27,9 @@
 document.addEventListener('DOMContentLoaded', function() {
     var flameTip = document.getElementById('flame-tip');
     var flameBody = document.getElementById('flame-body');
-    var flameSize = 100; // Initial flame size
+    var flameSize = 30; // Initial flame size
+    var originalFlameSize = 30; // Original flame size
+    var timer = null;
 
     document.addEventListener('mousemove', function(e) {
         var mouseX = e.clientX;
@@ -56,6 +58,14 @@ document.addEventListener('DOMContentLoaded', function() {
         flameSize += 1;
         flameTip.style.width = flameSize + 'px';
         flameTip.style.height = flameSize + 'px';
+
+        // Reset flame size after 10 seconds
+        clearTimeout(timer);
+        timer = setTimeout(function() {
+            flameSize = originalFlameSize;
+            flameTip.style.width = flameSize + 'px';
+            flameTip.style.height = flameSize + 'px';
+        }, 10000);
     });
 });
 </script>
