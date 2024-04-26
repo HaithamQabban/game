@@ -17,7 +17,7 @@
     }
     #flame {
         position: absolute;
-        width: 250px; /* adjust size as needed */
+        width: 100px; /* adjust size as needed */
         height: auto;
         pointer-events: none; /* so that the flame doesn't interfere with mouse events */
     }
@@ -34,7 +34,7 @@
         var container = document.getElementById('container');
 
         container.addEventListener('mousemove', function(event) {
-            var x = event.clientX - flame.width;
+            var x = event.clientX - (flame.width / 2); // Adjusting to center the flame tip
             var y = event.clientY - flame.height;
 
             flame.style.left = x + 'px';
