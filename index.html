@@ -14,7 +14,7 @@
     
     .flame-part {
         position: absolute;
-        background: url('neddle.png') no-repeat center center/contain; /* Replace 'flame.png' with your flame image */
+        background: url('needle.png') no-repeat center center/contain; /* Replace 'flame.png' with your flame image */
         pointer-events: none; /* Allow mouse events to pass through */
     }
 </style>
@@ -38,21 +38,6 @@ document.addEventListener('DOMContentLoaded', function() {
         // Set the position of the flame tip to follow the mouse cursor
         flameTip.style.left = mouseX - flameSize / 2 + 'px';
         flameTip.style.top = mouseY - flameSize + 'px';
-        
-        // Calculate the distance between flame tip and mouse cursor
-        var dx = flameTip.offsetLeft + flameSize / 2 - mouseX;
-        var dy = flameTip.offsetTop + flameSize / 2 - mouseY;
-        var distance = Math.sqrt(dx * dx + dy * dy);
-        
-        // Apply physics to the flame body based on the distance from the cursor
-        var maxDistance = 100; // Adjust this value for the desired effect
-        var displacement = Math.min(distance, maxDistance) / maxDistance;
-        var maxDisplacement = 20; // Adjust this value for the maximum displacement
-        var offsetX = maxDisplacement * (Math.random() - 0.5) * displacement;
-        var offsetY = maxDisplacement * (Math.random() - 0.5) * displacement;
-        
-        flameBody.style.left = flameTip.offsetLeft + offsetX + 'px';
-        flameBody.style.top = flameTip.offsetTop + offsetY + 'px';
         
         // Increase flame size with every swing
         flameSize += 1;
