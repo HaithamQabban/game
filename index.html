@@ -12,45 +12,44 @@
         cursor: none; /* Hide the default cursor */
     }
     
-    .flame-part {
+    #flame-tip {
         position: absolute;
-        background: url('needle.png') no-repeat center center/contain; /* Replace 'flame.png' with your flame image */
+        background: url('the flame.gif') no-repeat center center; /* Replace 'flame-tip.gif' with the path to your GIF file for the flame tip */
         pointer-events: none; /* Allow mouse events to pass through */
+        width: 50px; /* Adjust the size of the flame tip */
+        height: 50px; /* Adjust the size of the flame tip */
+        transition: all 0.2s ease; /* Smooth transition for flame tip */
+    }
+    
+    #flame-body {
+        position: absolute;
+        background: url('the flame.gif') no-repeat center center; /* Replace 'flame-body.gif' with the path to your GIF file for the flame body */
+        pointer-events: none; /* Allow mouse events to pass through */
+        width: 100px; /* Adjust the size of the flame body */
+        height: 100px; /* Adjust the size of the flame body */
     }
 </style>
 </head>
 <body>
-<div id="flame-tip" class="flame-part"></div>
-<div id="flame-body" class="flame-part"></div>
+<div id="flame-tip"></div>
+<div id="flame-body"></div>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     var flameTip = document.getElementById('flame-tip');
     var flameBody = document.getElementById('flame-body');
-    var flameSize = 50; // Initial flame size
-    var originalFlameSize = 46; // Original flame size
-    var timer = null;
 
     document.addEventListener('mousemove', function(e) {
         var mouseX = e.clientX;
         var mouseY = e.clientY;
         
         // Set the position of the flame tip to follow the mouse cursor
-        flameTip.style.left = mouseX - flameSize / 20 + 'px';
-        flameTip.style.top = mouseY - flameSize + 'px';
+        flameTip.style.left = mouseX - flameTip.offsetWidth / 2 + 'px';
+        flameTip.style.top = mouseY - flameTip.offsetHeight + 'px';
         
-        // Increase flame size with every swing
-        flameSize += 10;
-        flameTip.style.width = flameSize + 'px';
-        flameTip.style.height = flameSize + 'px';
-
-        // Reset flame size after 10 seconds
-        clearTimeout(timer);
-        timer = setTimeout(function() {
-            flameSize = originalFlameSize;
-            flameTip.style.width = flameSize + 'px';
-            flameTip.style.height = flameSize + 'px';
-        }, 10000);
+        // Set the position of the flame body
+        flameBody.style.left = mouseX - flameBody.offsetWidth / 2 + 'px';
+        flameBody.style.top = mouseY - flameBody.offsetHeight / 2 + 'px';
     });
 });
 </script>
