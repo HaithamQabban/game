@@ -34,8 +34,8 @@
         var container = document.getElementById('container');
 
         container.addEventListener('mousemove', function(event) {
-            var x = event.clientX - flame.width / 2;
-            var y = event.clientY - flame.height / 2;
+            var x = event.clientX - flame.width;
+            var y = event.clientY - flame.height;
 
             flame.style.left = x + 'px';
             flame.style.top = y + 'px';
