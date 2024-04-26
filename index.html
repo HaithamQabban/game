@@ -29,14 +29,19 @@
 document.addEventListener('DOMContentLoaded', function() {
     var flame = document.getElementById('flame');
 
-    document.addEventListener('mousemove', function(e) {
-        var mouseX = e.clientX;
-        var mouseY = e.clientY;
+    function updateFlamePosition() {
+        requestAnimationFrame(updateFlamePosition);
+        
+        var mouseX = event.clientX;
+        var mouseY = event.clientY;
         
         // Set the position of the flame to follow the mouse cursor
         flame.style.left = mouseX - flame.offsetWidth / 2 + 'px';
         flame.style.top = mouseY - flame.offsetHeight + 'px';
-    });
+    }
+
+    // Initial call to start updating flame position
+    updateFlamePosition();
 });
 </script>
 </body>
