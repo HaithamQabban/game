@@ -3,46 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mouse Flame</title>
-<style>
-    body {
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-        cursor: none; /* Hide the default cursor */
-    }
-    
-    #flame {
-        position: absolute;
-        background: url('the flame.gif') no-repeat center center; /* Replace 'flame.gif' with the path to your GIF file for the flame */
-        pointer-events: none; /* Allow mouse events to pass through */
-        width: 100px; /* Adjust the size of the flame */
-        height: 100px; /* Adjust the size of the flame */
-        transition: all 0.2s ease; /* Smooth transition for flame */
-    }
-</style>
+<title>Follow Flame</title>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 <div id="flame"></div>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    var flame = document.getElementById('flame');
-
-    function updateFlamePosition() {
-        requestAnimationFrame(updateFlamePosition);
-        
-        var mouseX = event.clientX;
-        var mouseY = event.clientY;
-        
-        // Set the position of the flame to follow the mouse cursor
-        flame.style.left = mouseX - flame.offsetWidth / 2 + 'px';
-        flame.style.top = mouseY - flame.offsetHeight + 'px';
-    }
-
-    // Initial call to start updating flame position
-    updateFlamePosition();
-});
-</script>
+<script src="script.js"></script>
 </body>
 </html>
