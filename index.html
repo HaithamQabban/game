@@ -33,6 +33,7 @@
     window.onload = function() {
         var flame = document.getElementById('flame');
         var container = document.getElementById('container');
+        var prevY = null;
 
         container.addEventListener('mousemove', function(event) {
             var rect = container.getBoundingClientRect();
@@ -60,10 +61,12 @@
             var flameToMouseY = mouseY - flameCenterY;
 
             var flameAngle = Math.atan2(flameToMouseY, flameToMouseX) * (180 / Math.PI);
-            if (Math.abs(flameAngle) > 90) {
+            if (prevY !== null && mouseY > prevY) {
                 flameAngle += 180; // Ensure flame rotates 180 degrees when mouse moves from top to bottom
             }
             flame.style.transform = 'rotate(' + flameAngle + 'deg)';
+            
+            prevY = mouseY;
         });
     };
 </script>
