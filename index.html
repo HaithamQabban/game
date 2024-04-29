@@ -30,29 +30,33 @@
 </div>
 
 <script>
-    window.onload = function() {
-        var flame = document.getElementById('flame');
-        var container = document.getElementById('container');
+window.onload = function() {
+    var flame = document.getElementById('flame');
+    var container = document.getElementById('container');
+    
+    var flameWidth = 100; // Width of the flame image
 
-        container.addEventListener('mousemove', function(event) {
-            var rect = container.getBoundingClientRect();
-            var centerX = rect.left + rect.width / 2;
-            var centerY = rect.top + rect.height / 2;
-            var mouseX = event.clientX;
-            var mouseY = event.clientY;
+    container.addEventListener('mousemove', function(event) {
+        var rect = container.getBoundingClientRect();
+        var centerX = rect.left + rect.width / 2;
+        var centerY = rect.top + rect.height / 2;
+        var mouseX = event.clientX;
+        var mouseY = event.clientY;
 
-            var dx = mouseX - centerX;
-            var dy = mouseY - centerY;
+        var dx = mouseX - centerX;
+        var dy = mouseY - centerY;
 
-            var angle = Math.atan2(dy, dx) * (180 / Math.PI); // Calculate angle in degrees
-            flame.style.transform = 'rotate(' + angle + 'deg)';
+        var angle = Math.atan2(dy, dx) * (180 / Math.PI); // Calculate angle in degrees
+        angle += 90; // Adjust the angle to point the flame tip in the direction
 
-            var x = event.clientX - (flame.width / 2); // Adjusting to center the flame horizontally
-            var y = event.clientY - (flame.height / 2); // Adjusting to center the flame vertically
-            flame.style.left = x + 'px';
-            flame.style.top = y + 'px';
-        });
-    };
+        flame.style.transform = 'rotate(' + angle + 'deg)';
+
+        var x = event.clientX - (flameWidth / 2); // Adjusting to center the flame horizontally
+        var y = event.clientY - (flame.height / 2); // Adjusting to center the flame vertically
+        flame.style.left = x + 'px';
+        flame.style.top = y + 'px';
+    });
+};
 </script>
 </body>
 </html>
