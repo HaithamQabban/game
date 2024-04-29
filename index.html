@@ -33,8 +33,6 @@
     window.onload = function() {
         var flame = document.getElementById('flame');
         var container = document.getElementById('container');
-        var prevX = null;
-        var prevY = null;
 
         container.addEventListener('mousemove', function(event) {
             var rect = container.getBoundingClientRect();
@@ -48,22 +46,11 @@
 
             var angle = Math.atan2(dy, dx) * (180 / Math.PI); // Calculate angle in degrees
             flame.style.transform = 'rotate(' + angle + 'deg)';
-            
-            var x = event.clientX - (flame.width / 2); // Adjusting to center the flame tip
-            var y = event.clientY - flame.height;
+
+            var x = event.clientX - (flame.width / 2); // Adjusting to center the flame horizontally
+            var y = event.clientY - (flame.height / 2); // Adjusting to center the flame vertically
             flame.style.left = x + 'px';
             flame.style.top = y + 'px';
-
-            if (prevX !== null && prevY !== null) {
-                var deltaX = mouseX - prevX;
-                var deltaY = mouseY - prevY;
-                var angleDelta = Math.atan2(deltaY, deltaX) * (180 / Math.PI);
-
-                flame.style.transform = 'rotate(' + angleDelta + 'deg)';
-            }
-            
-            prevX = mouseX;
-            prevY = mouseY;
         });
     };
 </script>
