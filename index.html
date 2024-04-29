@@ -62,7 +62,7 @@
 
             var flameAngle = Math.atan2(flameToMouseY, flameToMouseX) * (180 / Math.PI);
             if (prevY !== null && mouseY > prevY) {
-                flameAngle += 180; // Ensure flame rotates 180 degrees when mouse moves from top to bottom
+                flameAngle += 90; // Adjust the rotation angle here
             }
             flame.style.transform = 'rotate(' + flameAngle + 'deg)';
             
