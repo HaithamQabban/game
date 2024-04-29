@@ -17,8 +17,9 @@
   #cursor {
     position: absolute;
     z-index: 1;
-    filter: url('#goo');
-    transform-origin: center;
+    top: -50px; /* Adjust as needed */
+    left: -50px; /* Adjust as needed */
+    pointer-events: none;
   }
 
   .blob {
@@ -130,14 +131,12 @@
     }
 
     follow() {
-      this.distX = mouse.x - this.pos.x;
-      this.distY = mouse.y - this.pos.y;
-      this.velX = Math.abs(this.distX / 8);
-      this.velY = Math.abs(this.distY / 8);
-      this.pos.x += this.distX / (10 + (this.ind * 0.8));
-      this.pos.y += this.distY / (10 + (this.ind * 0.8));
-      this.scaleX = map(this.velX, 0, 100, 1, 2);
-      this.scaleY = map(this.velY, 0, 100, 1, 2);
+      this.distX = mouse.x;
+      this.distY = mouse.y;
+      this.pos.x = this.distX;
+      this.pos.y = this.distY;
+      this.scaleX = map(10, 0, 100, 1, 2);
+      this.scaleY = map(10, 0, 100, 1, 2);
       this.el.style.transform = 'translate(' + this.pos.x + 'px, ' + this.pos.y + 'px) scale(' + Math.max(this.scaleX, this.scaleY) + ')';
     }
   }
