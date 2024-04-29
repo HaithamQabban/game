@@ -51,6 +51,16 @@
             var y = event.clientY - flame.height;
             flame.style.left = x + 'px';
             flame.style.top = y + 'px';
+
+            var flameRect = flame.getBoundingClientRect();
+            var flameCenterX = flameRect.left + flameRect.width / 2;
+            var flameCenterY = flameRect.top + flameRect.height / 2;
+
+            var flameToMouseX = mouseX - flameCenterX;
+            var flameToMouseY = mouseY - flameCenterY;
+
+            var flameAngle = Math.atan2(flameToMouseY, flameToMouseX) * (180 / Math.PI);
+            flame.style.transform = 'rotate(' + flameAngle + 'deg)';
         });
     };
 </script>
