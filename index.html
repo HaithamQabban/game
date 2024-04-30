@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mouse Gooey Effect</title>
+<title>Mouse Fire Effect</title>
 <style>
   html,
   body {
@@ -35,55 +35,71 @@
     margin: -15px 0 0 -15px;
     width: 30px;
     height: 30px;
-    border-radius: 100%;
-    background: #ffb924;
+    border-radius: 50%;
+    background: #ff5733;
+    animation: flicker1 1s infinite alternate;
   }
 
   .blob:nth-child(2) {
     margin: -10px 0 0 -10px;
     width: 20px;
     height: 20px;
-    z-index: -1;
+    border-radius: 50%;
     background: #ff8b24;
+    animation: flicker2 0.8s infinite alternate;
   }
 
   .blob:nth-child(3) {
     margin: -7.5px 0 0 -7.5px;
     width: 15px;
     height: 15px;
-    z-index: -2;
-    background: #ff6724;
-    animation: move2 .3s forwards infinite;
+    border-radius: 50%;
+    background: #ffd700;
+    animation: flicker3 0.6s infinite alternate;
   }
 
   .blob:nth-child(4) {
     margin: -6px 0 0 -6px;
     width: 12px;
     height: 12px;
-    z-index: 30;
-    background: #ff2e24;
-    animation: move3 .5s forwards infinite;
+    border-radius: 50%;
+    background: #ffdb58;
+    animation: flicker4 0.4s infinite alternate;
   }
 
-  @keyframes move2 {
+  @keyframes flicker1 {
     0% {
-      left: 5px;
-      top: -5px;
+      opacity: 1;
     }
     100% {
-      left: -5px;
-      top: 5px;
+      opacity: 0.8;
     }
   }
 
-  @keyframes move3 {
+  @keyframes flicker2 {
     0% {
-      left: 5px;
-      top: 5px;
+      opacity: 0.8;
     }
     100% {
-      left: -5px;
-      top: -5px;
+      opacity: 0.6;
+    }
+  }
+
+  @keyframes flicker3 {
+    0% {
+      opacity: 0.6;
+    }
+    100% {
+      opacity: 0.4;
+    }
+  }
+
+  @keyframes flicker4 {
+    0% {
+      opacity: 0.4;
+    }
+    100% {
+      opacity: 0.2;
     }
   }
 </style>
