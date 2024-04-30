@@ -13,6 +13,16 @@
     overflow: hidden;
     background: #101010;
   }
+  .blob.following {
+  width: 0;
+  height: 0;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-bottom: 50px solid #ff8b24; /* Adjust color to your preference */
+  position: relative;
+  transform: rotate(45deg); /* Adjust rotation to fit your design */
+}
+
 
   #cursor {
     position: absolute;
@@ -126,11 +136,15 @@
   /*--------------------
   Mouse Follow
   --------------------*/
-  class MouseFollow {
-    constructor(options) {
-      Object.assign(this, options);
-      this.pos = { x: 0, y: 0 };
-    }
+class MouseFollow {
+  constructor(options) {
+    Object.assign(this, options);
+    this.pos = { x: 0, y: 0 };
+    this.el.classList.add('following'); // Add following class to blob
+  }
+  // Rest of the class remains the same
+}
+
 
     follow() {
       this.distX = mouse.x - this.pos.x;
