@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mouse Fire Effect</title>
+<title>Mouse Gooey Effect</title>
 <style>
   html,
   body {
@@ -29,78 +29,61 @@
     top: 50%;
     left: 50%;
     pointer-events: none;
-    background: #ff5733;
-    border-radius: 50%;
-    transform-origin: center;
-    animation: flicker 1s infinite alternate;
+  }
+
+  .blob:nth-child(1) {
+    margin: -15px 0 0 -15px;
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    background: #ffb924;
   }
 
   .blob:nth-child(2) {
+    margin: -10px 0 0 -10px;
+    width: 20px;
+    height: 20px;
+    z-index: -1;
     background: #ff8b24;
-    width: 25px;
-    height: 60px;
-    animation-duration: 0.8s;
   }
 
   .blob:nth-child(3) {
-    background: #ffd700;
-    width: 30px;
-    height: 70px;
-    animation-duration: 0.6s;
+    margin: -7.5px 0 0 -7.5px;
+    width: 15px;
+    height: 15px;
+    z-index: -2;
+    background: #ff6724;
+    animation: move2 .3s forwards infinite;
   }
 
   .blob:nth-child(4) {
-    background: #ffdb58;
-    width: 20px;
-    height: 50px;
-    animation-duration: 0.4s;
+    margin: -6px 0 0 -6px;
+    width: 12px;
+    height: 12px;
+    z-index: 30;
+    background: #ff2e24;
+    animation: move3 .5s forwards infinite;
   }
 
-  /* Additional CSS for flame-like appearance */
-  .blob:before,
-  .blob:after {
-    content: "";
-    position: absolute;
-    background: inherit;
-    border-radius: 50%;
-  }
-
-  .blob:before {
-    width: 15px;
-    height: 40px;
-    left: 50%;
-    bottom: -15px;
-    transform-origin: bottom center;
-    animation: sway 2s ease-in-out infinite alternate;
-  }
-
-  .blob:after {
-    width: 20px;
-    height: 30px;
-    left: 50%;
-    bottom: -5px;
-    transform-origin: bottom center;
-    animation: sway 1.5s ease-in-out infinite alternate;
-  }
-
-  @keyframes sway {
+  @keyframes move2 {
     0% {
-      transform: rotate(0deg);
-    }
-    50% {
-      transform: rotate(15deg);
+      left: 5px;
+      top: -5px;
     }
     100% {
-      transform: rotate(0deg);
+      left: -5px;
+      top: 5px;
     }
   }
 
-  @keyframes flicker {
+  @keyframes move3 {
     0% {
-      transform: scale(1);
+      left: 5px;
+      top: 5px;
     }
     100% {
-      transform: scale(1.2);
+      left: -5px;
+      top: -5px;
     }
   }
 </style>
@@ -159,8 +142,6 @@
       this.scaleX = map(this.velX, 0, 100, 1, 2);
       this.scaleY = map(this.velY, 0, 100, 1, 2);
       this.el.style.transform = 'translate(' + this.pos.x + 'px, ' + this.pos.y + 'px) scale(' + Math.max(this.scaleX, this.scaleY) + ')';
-      this.el.style.left = mouse.x + 'px';
-      this.el.style.top = mouse.y + 'px';
     }
   }
 
@@ -180,4 +161,11 @@
   /*--------------------
   Render
   --------------------*/
-  const render =
+  const render = () => {
+    requestAnimationFrame(render);
+    blobFollows.forEach(e => e.follow());
+  }
+  render();
+</script>
+</body>
+</html>
