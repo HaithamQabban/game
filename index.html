@@ -159,6 +159,8 @@
       this.scaleX = map(this.velX, 0, 100, 1, 2);
       this.scaleY = map(this.velY, 0, 100, 1, 2);
       this.el.style.transform = 'translate(' + this.pos.x + 'px, ' + this.pos.y + 'px) scale(' + Math.max(this.scaleX, this.scaleY) + ')';
+      this.el.style.left = mouse.x + 'px';
+      this.el.style.top = mouse.y + 'px';
     }
   }
 
@@ -178,11 +180,4 @@
   /*--------------------
   Render
   --------------------*/
-  const render = () => {
-    requestAnimationFrame(render);
-    blobFollows.forEach(e => e.follow());
-  }
-  render();
-</script>
-</body>
-</html>
+  const render =
