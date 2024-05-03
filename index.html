@@ -1,185 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mouse Gooey Effect</title>
-<style>
-  html,
-  body {
-    height: 100vh;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background: #101010;
-  }
-  .blob.following {
-  width: 0;
-  height: 0;
-  border-left: 15px solid transparent;
-  border-right: 15px solid transparent;
-  border-bottom: 50px solid #ff8b24; /* Adjust color to your preference */
-  position: relative;
-  transform: rotate(45deg); /* Adjust rotation to fit your design */
-}
-
-
-  #cursor {
-    position: absolute;
-    z-index: 1;
-    filter: url('#goo');
-    transform-origin: center;
-    /* Set initial position to be on top of the mouse cursor */
-    top: -15px; /* Adjust as needed */
-    left: -15px; /* Adjust as needed */
-  }
-
-  .blob {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    pointer-events: none;
-  }
-
-  .blob:nth-child(1) {
-    margin: -15px 0 0 -15px;
-    width: 30px;
-    height: 30px;
-    border-radius: 100%;
-    background: #ffb924;
-  }
-
-  .blob:nth-child(2) {
-    margin: -10px 0 0 -10px;
-    width: 20px;
-    height: 20px;
-    z-index: -1;
-    background: #ff8b24;
-  }
-
-  .blob:nth-child(3) {
-    margin: -7.5px 0 0 -7.5px;
-    width: 15px;
-    height: 15px;
-    z-index: -2;
-    background: #ff6724;
-    animation: move2 .3s forwards infinite;
-  }
-
-  .blob:nth-child(4) {
-    margin: -6px 0 0 -6px;
-    width: 12px;
-    height: 12px;
-    z-index: 30;
-    background: #ff2e24;
-    animation: move3 .5s forwards infinite;
-  }
-
-  @keyframes move2 {
-    0% {
-      left: 5px;
-      top: -5px;
-    }
-    100% {
-      left: -5px;
-      top: 5px;
-    }
-  }
-
-  @keyframes move3 {
-    0% {
-      left: 5px;
-      top: 5px;
-    }
-    100% {
-      left: -5px;
-      top: -5px;
-    }
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yemeni Jambiya</title>
+    <style>
+        body {
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .jambiya {
+            width: 100px;
+            height: 200px;
+            background-color: #d9a76e;
+            position: relative;
+            animation: slice 2s infinite alternate;
+        }
+        .blade {
+            width: 0;
+            height: 0;
+            border-left: 50px solid transparent;
+            border-right: 50px solid transparent;
+            border-bottom: 100px solid #d9a76e;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+        @keyframes slice {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(10deg);
+            }
+        }
+    </style>
 </head>
 <body>
-<div id="cursor">
-  <div class="blob"></div>
-  <div class="blob"></div>
-  <div class="blob"></div>
-  <div class="blob"></div>
-</div>
-<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
-  <defs>
-    <filter id="goo">
-      <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="my-blur" />
-      <feColorMatrix in="my-blur" mode="matrix" values="
-                1 0 0 0 0
-                0 1 0 0 0
-                0 0 1 0 0
-                0 0 0 20 -8" result="my-gooey" />
-    </filter>
-  </defs>
-</svg>
-<script>
-  /*--------------------
-  Get Mouse
-  --------------------*/
-  let mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2, dir: '' };
-  const getMouse = (e) => {
-    mouse = {
-      x: e.clientX || e.pageX || e.touches[0].pageX || 0,
-      y: e.clientY || e.pageY || e.touches[0].pageY || 0,
-      dir: (mouse.x > (e.clientX || e.pageX || e.touches[0].pageX)) ? 'left' : 'right'
-    }
-  };
-  ['mousemove', 'touchstart', 'touchmove'].forEach(e => {
-    window.addEventListener(e, getMouse);
-  });
-
-  /*--------------------
-  Mouse Follow
-  --------------------*/
-class MouseFollow {
-  constructor(options) {
-    Object.assign(this, options);
-    this.pos = { x: 0, y: 0 };
-    this.el.classList.add('following'); // Add following class to blob
-  }
-  // Rest of the class remains the same
-}
-
-
-    follow() {
-      this.distX = mouse.x - this.pos.x;
-      this.distY = mouse.y - this.pos.y;
-      this.velX = Math.abs(this.distX / 8);
-      this.velY = Math.abs(this.distY / 8);
-      this.pos.x += this.distX / (10 + (this.ind * 0.8));
-      this.pos.y += this.distY / (10 + (this.ind * 0.8));
-      this.scaleX = map(this.velX, 0, 100, 1, 2);
-      this.scaleY = map(this.velY, 0, 100, 1, 2);
-      this.el.style.transform = 'translate(' + this.pos.x + 'px, ' + this.pos.y + 'px) scale(' + Math.max(this.scaleX, this.scaleY) + ')';
-    }
-  }
-
-  /*--------------------
-  Map
-  --------------------*/
-  function map(num, in_min, in_max, out_min, out_max) {
-    return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
-  }
-
-  /*--------------------
-  Init
-  --------------------*/
-  const blobs = Array.from(document.querySelectorAll('#cursor .blob'));
-  const blobFollows = blobs.map((e, i) => new MouseFollow({ el: e, ind: i }));
-
-  /*--------------------
-  Render
-  --------------------*/
-  const render = () => {
-    requestAnimationFrame(render);
-    blobFollows.forEach(e => e.follow());
-  }
-  render();
-</script>
+    <div class="jambiya">
+        <div class="blade"></div>
+    </div>
 </body>
 </html>
