@@ -1,70 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Knife Slicing Effect</title>
     <style>
+        /* Define the knife cursor using a URL to the image */
         body {
-            margin: 0;
-            overflow: hidden;
+            cursor: url('knife.png'), auto;
         }
-        canvas {
-            background-color: #f0f0f0;
-            display: block;
+
+        /* Define the rectangle */
+        .rectangle {
+            width: 200px;
+            height: 100px;
+            background: red;
+        }
+
+        /* Change the color of the rectangle when the knife cursor is over it */
+        .rectangle:hover {
+            background: green;
         }
     </style>
 </head>
 <body>
-    <canvas id="knifeCanvas"></canvas>
-
-    <script>
-        const canvas = document.getElementById('knifeCanvas');
-        const ctx = canvas.getContext('2d');
-
-        // Resize canvas to fill the window
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
-
-        let isSlicing = false;
-        let slicePoints = [];
-
-        // Event listeners
-        canvas.addEventListener('mousedown', () => {
-            isSlicing = true;
-        });
-
-        canvas.addEventListener('mouseup', () => {
-            isSlicing = false;
-            slicePoints = [];
-        });
-
-        canvas.addEventListener('mousemove', (event) => {
-            if (isSlicing) {
-                const x = event.clientX;
-                const y = event.clientY;
-                slicePoints.push({ x, y });
-                drawSlice();
-            }
-        });
-
-        // Draw the slice
-        function drawSlice() {
-            if (slicePoints.length < 2) return;
-
-            ctx.beginPath();
-            ctx.moveTo(slicePoints[0].x, slicePoints[0].y);
-            for (let i = 1; i < slicePoints.length; i++) {
-                ctx.lineTo(slicePoints[i].x, slicePoints[i].y);
-            }
-            ctx.strokeStyle = '#ff0000'; // Red color for the "knife"
-            ctx.lineWidth = 2; // Width of the slice line
-            ctx.stroke();
-        }
-    </script>
+    <div class="rectangle"></div>
 </body>
 </html>
