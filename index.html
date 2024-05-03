@@ -1,79 +1,70 @@
-import pygame
-import sys
-import random
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Knife Slicing Effect</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+        canvas {
+            background-color: #f0f0f0;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="knifeCanvas"></canvas>
 
-# Initialize pygame
-pygame.init()
+    <script>
+        const canvas = document.getElementById('knifeCanvas');
+        const ctx = canvas.getContext('2d');
 
-# Set up the display
-width, height = 800, 600
-screen = pygame.display.set_mode((width, height))
-pygame.display.set_caption('Fruit Ninja Style Slicing Effect')
+        // Resize canvas to fill the window
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
 
-# Define colors
-WHITE = (255, 255, 255)
-RED = (255, 0, 0)
+        let isSlicing = false;
+        let slicePoints = [];
 
-# Slice effect settings
-slice_points = []
-slice_length = 20
+        // Event listeners
+        canvas.addEventListener('mousedown', () => {
+            isSlicing = true;
+        });
 
-# Load fruit images
-fruit_images = [pygame.image.load('apple.png'), pygame.image.load('banana.png')]
+        canvas.addEventListener('mouseup', () => {
+            isSlicing = false;
+            slicePoints = [];
+        });
 
-# Fruit class
-class Fruit:
-    def __init__(self):
-        self.image = random.choice(fruit_images)
-        self.x = random.randint(100, width - 100)
-        self.y = height + 100
-        self.speed = random.randint(-10, -5)
+        canvas.addEventListener('mousemove', (event) => {
+            if (isSlicing) {
+                const x = event.clientX;
+                const y = event.clientY;
+                slicePoints.push({ x, y });
+                drawSlice();
+            }
+        });
 
-    def update(self):
-        self.y += self.speed
-        if self.y < -100:
-            self.x = random.randint(100, width - 100)
-            self.y = height + 100
-            self.speed = random.randint(-10, -5)
+        // Draw the slice
+        function drawSlice() {
+            if (slicePoints.length < 2) return;
 
-    def draw(self):
-        screen.blit(self.image, (self.x, self.y))
-
-# Create a list of fruits
-fruits = [Fruit() for _ in range(5)]
-
-# Main loop
-running = True
-while running:
-    # Handle events
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-        elif event.type == pygame.MOUSEBUTTONDOWN:
-            slice_points = []
-    
-    # Get mouse position
-    mouse_pos = pygame.mouse.get_pos()
-    if pygame.mouse.get_pressed()[0]:  # If left mouse button is pressed
-        slice_points.append(mouse_pos)
-        if len(slice_points) > slice_length:
-            slice_points.pop(0)
-    
-    # Clear screen
-    screen.fill(WHITE)
-    
-    # Draw fruits
-    for fruit in fruits:
-        fruit.update()
-        fruit.draw()
-    
-    # Draw the slice
-    if len(slice_points) > 1:
-        pygame.draw.lines(screen, RED, False, slice_points, 5)
-    
-    # Update the display
-    pygame.display.flip()
-
-# Quit pygame
-pygame.quit()
-sys.exit()
+            ctx.beginPath();
+            ctx.moveTo(slicePoints[0].x, slicePoints[0].y);
+            for (let i = 1; i < slicePoints.length; i++) {
+                ctx.lineTo(slicePoints[i].x, slicePoints[i].y);
+            }
+            ctx.strokeStyle = '#ff0000'; // Red color for the "knife"
+            ctx.lineWidth = 2; // Width of the slice line
+            ctx.stroke();
+        }
+    </script>
+</body>
+</html>
