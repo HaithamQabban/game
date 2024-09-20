@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return "Welcome to the Database Dump Web App! Go to /dump to create a database dump."
+    return "Go to /dump to create a database dump."
 
 @app.route('/dump')
 def dump():
@@ -36,4 +36,3 @@ def dump():
 
 if __name__ == '__main__':
     app.run(debug=True) 
-
